@@ -1,0 +1,7 @@
+<!ELEMENT configuracion (directorios|template)+>
+        <!ELEMENT template (nombre)+>
+            <!ELEMENT nombre (#PCDATA) >
+        <!ELEMENT directorios (imagenes|raiz|publico)+>
+            <!ELEMENT imagenes (#PCDATA) >
+            <!ELEMENT publico (#PCDATA) >
+            <!ELEMENT raiz (#PCDATA)>

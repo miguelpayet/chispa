@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuracion SYSTEM "configuracion.dtd">
+
+<configuracion>
+    <template>
+        <nombre>template.html</nombre>
+    </template>
+    <directorios>
+        <publico>C:/fotos/images</publico>
+        <imagenes>C:/fotos/originales</imagenes>
+        <raiz>C:/fotos</raiz>
+    </directorios>
+</configuracion>

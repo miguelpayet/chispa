@@ -35,6 +35,7 @@ class Util {
 		while ((aux = reader.readLine()) != null) {
 			sb.append(aux);
 		}
+		reader.close();
 		return sb.toString();
 	}
 

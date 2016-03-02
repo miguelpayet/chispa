@@ -1,0 +1,42 @@
+.izquierda {
+display:inline;
+float:left;
+width: 10%;
+height:100%;
+}
+
+.derecha {
+display:inline;
+float:right;
+width: 10%;
+height:100%;
+}
+
+.centro {
+display:inline;
+float:left;
+text-align:center;
+position:relative;
+width:80%;
+}
+
+img.thumbnail  {
+    position:absolute;
+    top:0;
+    bottom:40;
+    left:0;
+    right:0;
+    margin:auto;
+ }
+
+.cuerpo {
+height:90vh;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}

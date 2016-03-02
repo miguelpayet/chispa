@@ -6,8 +6,8 @@
         <nombre>template.html</nombre>
     </template>
     <directorios>
-        <publico>C:/fotos/images</publico>
-        <imagenes>C:/fotos/originales</imagenes>
-        <raiz>C:/fotos</raiz>
+        <publico>C:\Users\mpayet\Documents\Java\chispa\target\classes\images</publico>
+        <imagenes>C:\Users\mpayet\Documents\Java\chispa\target\classes\originales</imagenes>
+        <raiz>C:\Users\mpayet\Documents\Java\chispa\target\classes</raiz>
     </directorios>
 </configuracion>

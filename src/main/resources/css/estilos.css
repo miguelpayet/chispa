@@ -1,8 +1,23 @@
-.izquierda {
+.centro {
 display:inline;
 float:left;
-width: 10%;
-height:100%;
+text-align:center;
+position:relative;
+width:80%;
+line-height:90vh;
+}
+
+.clearfix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+
+.cuerpo {
+height:90vh;
+border: 1px solid red;
 }
 
 .derecha {
@@ -10,33 +25,17 @@ display:inline;
 float:right;
 width: 10%;
 height:100%;
-}
+margin-top: 45vh;}
 
-.centro {
+.izquierda {
 display:inline;
 float:left;
-text-align:center;
-position:relative;
-width:80%;
+width: 10%;
+height:100%;
+margin-top: 45vh;
 }
 
 img.thumbnail  {
-    position:absolute;
-    top:0;
-    bottom:40;
-    left:0;
-    right:0;
-    margin:auto;
- }
-
-.cuerpo {
-height:90vh;
+vertical-align:middle;
 }
 
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}

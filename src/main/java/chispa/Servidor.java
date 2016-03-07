@@ -5,7 +5,9 @@ import spark.Response;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 class Servidor {
 
@@ -18,7 +20,14 @@ class Servidor {
 	}
 
 	private Archivo getArchivo(Request req) {
-		return directorio.getArchivo(req.params(":nombre"));
+		String nombreEncoded = req.params(":nombre");
+		String nombreArch;
+		try {
+			nombreArch = java.net.URLDecoder.decode(nombreEncoded, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			nombreArch = nombreEncoded;
+		}
+		return directorio.getArchivo(nombreArch);
 	}
 
 	String imagen(Request req, Response res) {
@@ -35,12 +44,14 @@ class Servidor {
 
 	String pagina(Request req, Response res) {
 		Archivo arch = getArchivo(req);
+		String resultado;
 		if (arch != null) {
-			return renderer.renderPagina(arch, directorio);
+			resultado = renderer.renderPagina(arch, directorio);
 		} else {
-			res.status(404);
-			return "fail";
+			res.redirect("/");
+			resultado = "";
 		}
+		return resultado;
 	}
 
 	String primeraPagina() {
@@ -51,7 +62,13 @@ class Servidor {
 	String thumbnail(Request req, Response res) throws IOException {
 		Archivo archOriginal = getArchivo(req);
 		File fileThumb = archOriginal.getThumbnail();
-		res.redirect("/images/" + fileThumb.getName());
+		String fileName;
+		try {
+			fileName = URLEncoder.encode(fileThumb.getName(), "UTF-8").replace("+", "%20");
+		} catch (UnsupportedEncodingException e) {
+			fileName = fileThumb.getName();
+		}
+		res.redirect("/images/" + fileName);
 		return "";
 	}
 

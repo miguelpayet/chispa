@@ -2,6 +2,8 @@ package chispa;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Path;
 
 class Archivo implements Comparable<Archivo> {
@@ -38,6 +40,16 @@ class Archivo implements Comparable<Archivo> {
 
 	String getNombreBase() {
 		return nombreBase;
+	}
+
+	String getNombreBaseEncoded() {
+		String nombreEncoded;
+		try {
+			nombreEncoded = URLEncoder.encode(getNombreBase(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			nombreEncoded = getNombre();
+		}
+		return nombreEncoded;
 	}
 
 	String getNombreCompleto() {

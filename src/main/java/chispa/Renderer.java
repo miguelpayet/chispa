@@ -5,8 +5,7 @@ import java.util.HashMap;
 
 class Renderer {
 
-	private final String IDENTIFICADOR = "<-- reemplazar cuerpo -->";
-	String template;
+	private String template;
 
 	Renderer() throws IOException {
 		cargarTemplate();
@@ -16,13 +15,21 @@ class Renderer {
 		template = Util.readFile(Chispa.getConfiguracion().getNombreTemplate());
 	}
 
+	private void renderImg(StringBuilder sb, String imagen, String clase) {
+		final String CARPETA_THUMBNAIL = "/thumbnail/";
+		sb.append(String.format("<img class=\"%s\"", clase));
+		sb.append(" ");
+		sb.append(String.format("src=\"%s%s\"", CARPETA_THUMBNAIL, imagen));
+		sb.append("/>");
+	}
+
 	private void renderLink(Archivo archivo, String cssClass, StringBuilder sb) {
 		sb.append("<div class=\"");
 		sb.append(cssClass);
 		sb.append("\">");
 		if (archivo != null) {
 			sb.append("<a href=\"/pagina/");
-			sb.append(archivo.getNombreBase());
+			sb.append(archivo.getNombreBaseEncoded());
 			sb.append("\">");
 			sb.append(archivo.getNombreBase());
 			sb.append("</a>");
@@ -30,14 +37,6 @@ class Renderer {
 			sb.append("&nbsp;");
 		}
 		sb.append("</div>");
-	}
-
-	String renderPagina(Archivo archivo, Directorio directorio) {
-		HashMap<String, Archivo> archivos = new HashMap<>();
-		archivos.put(Archivo.ANTERIOR, directorio.getArchivoAnterior(archivo));
-		archivos.put(Archivo.PRINCIPAL, archivo);
-		archivos.put(Archivo.SIGUIENTE, directorio.getArchivoSiguiente(archivo));
-		return template.replaceFirst(IDENTIFICADOR, renderPagina(archivos));
 	}
 
 	private String renderPagina(HashMap<String, Archivo> archivos) {
@@ -48,14 +47,25 @@ class Renderer {
 		return sb.toString();
 	}
 
+	String renderPagina(Archivo archivo, Directorio directorio) {
+		final String IDENTIFICADOR = "<-- reemplazar cuerpo -->";
+		HashMap<String, Archivo> archivos = new HashMap<>();
+		archivos.put(Archivo.ANTERIOR, directorio.getArchivoAnterior(archivo));
+		archivos.put(Archivo.PRINCIPAL, archivo);
+		archivos.put(Archivo.SIGUIENTE, directorio.getArchivoSiguiente(archivo));
+		return template.replaceFirst(IDENTIFICADOR, renderPagina(archivos));
+	}
+
 	private void renderThumbnail(Archivo archivo, StringBuilder sb) {
 		sb.append("<div class=\"centro\">");
+		sb.append("<div class=\"imagen\"");
 		sb.append("<p>");
-		sb.append("<img class=\"thumbnail\" ");
-		sb.append("src=\"/thumbnail/");
-		sb.append(archivo.getNombreBase());
-		sb.append("\"/>");
+		renderImg(sb, archivo.getNombreBaseEncoded(), "thumbnail");
 		sb.append("</p>");
+		sb.append("<p class=\"nombre\">");
+		sb.append(archivo.getNombreBase());
+		sb.append("</p>");
+		sb.append("</div>");
 		sb.append("</div>");
 	}
 
